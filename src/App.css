@@ -49,3 +49,13 @@ footer{
   background-color: #4CAF50; /* Green */
   color: white;
 }
+h5{
+  color: blue;
+  size: 30px;
+}
+h3{
+  color: blueviolet;
+  size: 75px;
+  text-decoration: currentColor;
+  text-align: inherit;
+}

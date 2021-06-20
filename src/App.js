@@ -1,11 +1,13 @@
 import React, { useState} from "react"
 import { Nav, Navbar } from "react-bootstrap";
 import "./App.css";
+import { Switch,Route,Link } from "react-router-dom";
 
 import moviesData from './Components/MoviesData'
 import MovieList from './Components/MovieList'
 import AddList from "./Components/AddList";
 import FilterList from './Components/FilterList'
+import Trailer from './Components/Trailer'
 
 const App = () => {
     //useState()
@@ -26,25 +28,40 @@ const App = () => {
         <h1 style={{color:'black'}}> WELCOME WELCOME!</h1>
         
     <div className="Navbar">
-           <Nav>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Brand className="responsive-navbar-nav"> 
+        <Link to="/">Home</Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse className="responsive-navbar-nav">
+        <Nav>
             <FilterList
             SearchByName={filteredMovieName}
             SearchByRating={filteredMovieRating}
             />
-            <form class="form-inline">
-               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-           </Nav>
+        </Nav>
+        </Navbar.Collapse>
+    </Navbar>
     </div>
-
+    <Switch>
+    <Route exact path="/">
     <MovieList movie={movies} Name={SearchByName} Rating ={SearchByRating} />
+    </Route>
+    {movies.map(el=><Route path={`/Description/${el.imdbID}`}><Trailer
+              Title={el.Title}
+              Trailer={el.Trailer}
+              Description={el.Description}
+              Rating={el.Rating}
+            />
+            </Route>)}
+    </Switch>
     <Nav.Link className="Added">
     <AddList Add={Add} />
     </Nav.Link>
 
      <footer>
     <hr/>
-    <h5>MoviesApp-JARRAY @2021</h5>
+    <h6>MoviesApp-JARRAY @2021</h6>
     </footer>
 </div>
     )
